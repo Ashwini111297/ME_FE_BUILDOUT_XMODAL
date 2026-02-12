@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './App.css';
+import './XModal.css';
 
-function App() {
+function XModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
@@ -157,4 +157,4 @@ function App() {
   );
 }
 
-export default App;
+export default XModal;
