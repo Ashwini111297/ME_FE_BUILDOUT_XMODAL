@@ -23,28 +23,7 @@ function XModal({ isOpen, onClose }) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (formData.email && !formData.email.includes("@")) {
-    alert(
-      `please include an '@' in the email address. ${formData.email} is missing an '@'`
-    );
-    return false;
-  }
-
-    const phoneRegex = /^\d{10}$/;
-    if (formData.phone && !phoneRegex.test(formData.phone)) {
-      alert("Invalid phone number. Please enter a 10-digit phone number");
-      return false;
-    }
-
-   
-    if (formData.dob) {
-      const selectedDate = new Date(formData.dob);
-      if (selectedDate > today) {
-        alert("Invalid date of birth. Date of birth cannot be in the future");
-        return false;
-      }
-    }
-
+    // Required fields
     if (!formData.username.trim()) {
       alert("Please fill out this field");
       return false;
@@ -65,6 +44,28 @@ function XModal({ isOpen, onClose }) {
       return false;
     }
 
+    // Email validation
+    if (!formData.email.includes("@")) {
+      alert(
+        `Please include an '@' in the email address. '${formData.email}' is missing an '@'.`
+      );
+      return false;
+    }
+
+    // Phone validation
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      alert("Invalid phone number. Please enter a 10-digit phone number.");
+      return false;
+    }
+
+    // DOB validation
+    const selectedDate = new Date(formData.dob);
+    if (selectedDate > today) {
+      alert("Invalid date of birth. Date of birth cannot be in the future.");
+      return false;
+    }
+
     return true;
   };
 
@@ -72,24 +73,24 @@ function XModal({ isOpen, onClose }) {
     e.preventDefault();
 
     if (validateForm()) {
-      onClose();
       setFormData({
         username: "",
         email: "",
         phone: "",
         dob: "",
       });
+      onClose();
     }
   };
 
-  const handleModalClick = (e) => {
+  const handleOverlayClick = (e) => {
     if (e.target.className === "modal") {
       onClose();
     }
   };
 
   return (
-    <div className="modal" onClick={handleModalClick}>
+    <div className="modal" onClick={handleOverlayClick}>
       <div className="modal-content">
         <h2>Fill Details</h2>
 
@@ -107,7 +108,7 @@ function XModal({ isOpen, onClose }) {
           <div className="form-group">
             <label htmlFor="email">Email Address:</label>
             <input
-              type="text"
+              type="email"
               id="email"
               value={formData.email}
               onChange={handleChange}
@@ -117,7 +118,7 @@ function XModal({ isOpen, onClose }) {
           <div className="form-group">
             <label htmlFor="phone">Phone Number:</label>
             <input
-              type="text"
+              type="tel"
               id="phone"
               value={formData.phone}
               onChange={handleChange}

@@ -8,6 +8,7 @@ function App() {
   return (
     <div className="app">
       <h1>User Details Modal</h1>
+
       <button onClick={() => setIsModalOpen(true)}>
         Open Form
       </button>
