@@ -83,15 +83,9 @@ function XModal({ isOpen, onClose }) {
     }
   };
 
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
   return (
-    <div className="modal" onClick={handleOverlayClick}>
-      <div className="modal-content">
+    <div className="modal" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>Fill Details</h2>
 
         <form onSubmit={handleSubmit}>
