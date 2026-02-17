@@ -23,6 +23,30 @@ function XModal({ isOpen, onClose }) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    // Email validation (before required-field checks so test stubs fire correctly)
+    if (formData.email.trim() && !formData.email.includes("@")) {
+      alert(
+        `Invalid email address. Please include an '@' in the email address. '${formData.email}' is missing an '@'.`
+      );
+      return false;
+    }
+
+    // Phone validation (before required-field checks so test stubs fire correctly)
+    const phoneRegex = /^\d{10}$/;
+    if (formData.phone.trim() && !phoneRegex.test(formData.phone)) {
+      alert("Invalid phone number. Please enter a 10-digit phone number.");
+      return false;
+    }
+
+    // DOB validation (before required-field checks so test stubs fire correctly)
+    if (formData.dob.trim()) {
+      const selectedDate = new Date(formData.dob);
+      if (selectedDate > today) {
+        alert("Invalid date of birth. Date of birth cannot be in the future.");
+        return false;
+      }
+    }
+
     // Required fields
     if (!formData.username.trim()) {
       alert("Please fill out this field");
@@ -41,28 +65,6 @@ function XModal({ isOpen, onClose }) {
 
     if (!formData.dob.trim()) {
       alert("Please fill out this field");
-      return false;
-    }
-
-    // Email validation
-    if (!formData.email.includes("@")) {
-      alert(
-        `Please include an '@' in the email address. '${formData.email}' is missing an '@'.`
-      );
-      return false;
-    }
-
-    // Phone validation
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(formData.phone)) {
-      alert("Invalid phone number. Please enter a 10-digit phone number.");
-      return false;
-    }
-
-    // DOB validation
-    const selectedDate = new Date(formData.dob);
-    if (selectedDate > today) {
-      alert("Invalid date of birth. Date of birth cannot be in the future.");
       return false;
     }
 
