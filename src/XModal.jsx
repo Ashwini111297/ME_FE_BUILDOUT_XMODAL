@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "./XModal.css";
 
 function XModal({ isOpen, onClose }) {
@@ -8,8 +8,6 @@ function XModal({ isOpen, onClose }) {
     phone: "",
     dob: "",
   });
-
-  const overlayRef = useRef(null);
 
   if (!isOpen) return null;
 
@@ -88,14 +86,13 @@ function XModal({ isOpen, onClose }) {
   };
 
   const handleOverlayClick = (e) => {
-  if (e.target === e.currentTarget) {
-    onClose();
-  }
-};
-
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
 
   return (
-    <div className="modal" ref={overlayRef} onClick={handleOverlayClick}>
+    <div className="modal" onClick={handleOverlayClick}>
       <div className="modal-content">
         <h2>Fill Details</h2>
 
