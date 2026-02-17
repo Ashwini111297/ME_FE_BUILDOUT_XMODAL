@@ -23,22 +23,20 @@ function XModal({ isOpen, onClose }) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // Email validation (before required-field checks so test stubs fire correctly)
+    // Email validation
     if (formData.email.trim() && !formData.email.includes("@")) {
-      alert(
-        `Invalid email address. Please include an '@' in the email address. '${formData.email}' is missing an '@'.`
-      );
+      alert("Invalid email. Please check your email address.");
       return false;
     }
 
-    // Phone validation (before required-field checks so test stubs fire correctly)
+    // Phone validation
     const phoneRegex = /^\d{10}$/;
     if (formData.phone.trim() && !phoneRegex.test(formData.phone)) {
       alert("Invalid phone number. Please enter a 10-digit phone number.");
       return false;
     }
 
-    // DOB validation (before required-field checks so test stubs fire correctly)
+    // DOB validation
     if (formData.dob.trim()) {
       const selectedDate = new Date(formData.dob);
       if (selectedDate > today) {
