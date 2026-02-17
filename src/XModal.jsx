@@ -88,10 +88,11 @@ function XModal({ isOpen, onClose }) {
   };
 
   const handleOverlayClick = (e) => {
-    if (e.target === overlayRef.current) {
-      onClose();
-    }
-  };
+  if (e.target === e.currentTarget) {
+    onClose();
+  }
+};
+
 
   return (
     <div className="modal" ref={overlayRef} onClick={handleOverlayClick}>
