@@ -23,43 +23,26 @@ function XModal({ isOpen, onClose }) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    // Email validation
     if (formData.email.trim() && !formData.email.includes("@")) {
       alert("Invalid email. Please check your email address.");
       return false;
     }
 
+    // Phone validation
     const phoneRegex = /^\d{10}$/;
     if (formData.phone.trim() && !phoneRegex.test(formData.phone)) {
       alert("Invalid phone number. Please enter a 10-digit phone number.");
       return false;
     }
 
+    // DOB validation
     if (formData.dob.trim()) {
       const selectedDate = new Date(formData.dob);
       if (selectedDate > today) {
         alert("Invalid date of birth. Date of birth cannot be in the future.");
         return false;
       }
-    }
-
-    if (!formData.username.trim()) {
-      alert("Please fill out this field");
-      return false;
-    }
-
-    if (!formData.email.trim()) {
-      alert("Please fill out this field");
-      return false;
-    }
-
-    if (!formData.phone.trim()) {
-      alert("Please fill out this field");
-      return false;
-    }
-
-    if (!formData.dob.trim()) {
-      alert("Please fill out this field");
-      return false;
     }
 
     return true;
@@ -80,19 +63,46 @@ function XModal({ isOpen, onClose }) {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
-            <input type="text" id="username" value={formData.username} onChange={handleChange} />
+            <input
+              type="text"
+              id="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="email">Email Address:</label>
-            <input type="email" id="email" value={formData.email} onChange={handleChange} />
+            <input
+              type="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="phone">Phone Number:</label>
-            <input type="tel" id="phone" value={formData.phone} onChange={handleChange} />
+            <input
+              type="tel"
+              id="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+              pattern="\d{10}"
+              title="Please enter a 10-digit phone number"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="dob">Date of Birth:</label>
-            <input type="date" id="dob" value={formData.dob} onChange={handleChange} />
+            <input
+              type="date"
+              id="dob"
+              value={formData.dob}
+              onChange={handleChange}
+              required
+              max={new Date().toISOString().split('T')[0]}
+            />
           </div>
           <button type="submit" className="submit-button">Submit</button>
         </form>
